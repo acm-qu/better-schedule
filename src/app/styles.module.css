@@ -1,0 +1,429 @@
+/* "University" text style for the exported sheet */
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
+
+/* Keyframes stay global: step components reference them from inline styles */
+@keyframes :global(bs-ants) {
+  to { stroke-dashoffset: -96; }
+}
+
+@keyframes :global(bs-rise) {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes :global(bs-slide-in) {
+  from { opacity: 0; transform: translateX(56px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes :global(bs-menu-in) {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes :global(bs-menu-out) {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(-8px); }
+}
+
+/* Keeps the overscroll area matching the page theme */
+:global(body.better-schedule-page) {
+  background: #fbfafb;
+}
+
+:global(body.better-schedule-page.bs-dark) {
+  background: #010000;
+}
+
+/* The slide-in step transition briefly widens content past the viewport */
+.page {
+  overflow-x: hidden;
+}
+
+.page a,
+.page a:visited {
+  color: #42a7ae;
+}
+
+.page a:hover {
+  color: #3ae4d1;
+}
+
+.title {
+  font-family: var(--title);
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.2;
+  text-align: center;
+  margin: 12px 0 10px;
+  animation: bs-rise 0.7s cubic-bezier(0, .8, .2, 1) 0.25s both;
+}
+
+.textarea {
+  display: block;
+  width: 640px;
+  max-width: 76vw;
+  resize: none;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 2px solid var(--body);
+  background: var(--inputbg);
+  color: var(--ink);
+  font-family: var(--paragraph);
+  font-size: 13px;
+  line-height: 1.55;
+  outline: none;
+}
+
+.textarea:focus {
+  border-color: #3ae4d1;
+}
+
+.checkRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 2px;
+  border-bottom: 1px solid var(--hair);
+  cursor: pointer;
+  color: var(--body);
+  font-size: 15px;
+}
+
+/* Square-cornered checkbox, drawn from scratch so no platform rounds it off */
+.check {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border: 2px solid var(--muted);
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+
+.check:checked {
+  border-color: #42a7ae;
+  background: #42a7ae;
+}
+
+.check:checked::after {
+  content: "";
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid #fbfafb;
+  border-bottom: 2px solid #fbfafb;
+  transform: translateY(-1px) rotate(-45deg);
+}
+
+.fontRow:hover {
+  background: rgba(58, 228, 209, 0.08);
+}
+
+/* Preview controls: the height slider row and the truncation toggle under it */
+.previewControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: -20px 0 38px;
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.truncateRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--body);
+  font-size: 14px;
+  text-align: left;
+}
+
+.tourLink {
+  font-size: 13px;
+}
+
+/* Guided tour: a transparent blocker over the page, a spotlight that paints the
+   dim with an outsized shadow, and the card explaining the highlighted control */
+.tourBlock {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+.tourSpot {
+  position: fixed;
+  z-index: 101;
+  pointer-events: none;
+  box-shadow: 0 0 0 3px #3ae4d1, 0 0 0 9999px rgba(1, 0, 0, 0.68);
+  transition: top 0.25s ease, left 0.25s ease, width 0.25s ease, height 0.25s ease;
+}
+
+.tourCard {
+  position: fixed;
+  z-index: 102;
+  width: 260px;
+  box-sizing: border-box;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--popbg);
+  border: 1px solid var(--hair);
+  box-shadow: 4px 4px 0 0 #42a7ae;
+}
+
+.tourCount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: #42a7ae;
+}
+
+.tourText {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--paragraph);
+  font-size: 14px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.tourButtons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Schedule-height slider. The track width lives here so the marks inside can
+   position themselves as percentages of whatever width the breakpoint gives. */
+.slider {
+  position: relative;
+  width: 220px;
+  height: 28px;
+  cursor: pointer;
+  touch-action: none;
+  flex-shrink: 0;
+}
+
+/* Mobile through portrait tablet: 60% of the full track */
+@media (max-width: 1024px) {
+  .slider {
+    width: 132px;
+  }
+}
+
+.sliderTrack,
+.sliderFill {
+  position: absolute;
+  top: 13px;
+  height: 2px;
+}
+
+.sliderTrack {
+  left: 0;
+  right: 0;
+  background: var(--hair);
+}
+
+.sliderFill {
+  left: 0;
+  background: #3ae4d1;
+}
+
+.sliderTick {
+  position: absolute;
+  top: 19px;
+  width: 1px;
+  height: 6px;
+  background: var(--hair);
+}
+
+.sliderTickOn {
+  background: #42a7ae;
+}
+
+.sliderThumb {
+  position: absolute;
+  top: 7px;
+  width: 14px;
+  height: 14px;
+  background: #3ae4d1;
+  border: 2px solid #42a7ae;
+  box-sizing: border-box;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+/* Stepper — Paste / Customize / Export progress across the three steps */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.stepperAnimate {
+  animation: bs-rise 0.7s cubic-bezier(0, .8, .2, 1) 0.1s both;
+}
+
+.stepperItem {
+  display: contents;
+}
+
+.stepButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.stepMark {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--muted);
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stepMarkActive {
+  border: 2px solid #42a7ae;
+  color: #42a7ae;
+}
+
+.stepMarkDone {
+  background: #3ae4d1;
+  border: 2px solid #3ae4d1;
+  color: #010000;
+}
+
+.stepLabel {
+  font-family: var(--paragraph);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.stepLabelReached {
+  color: var(--ink);
+}
+
+.stepLabelActive {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* Connector sitting before its step, teal once that step has been reached */
+.stepLine {
+  width: 56px;
+  height: 1px;
+  flex-shrink: 0;
+  background: var(--hair);
+}
+
+.stepLineReached {
+  background: #3ae4d1;
+}
+
+/* Mobile: only the active step keeps its label, and only the connector running
+   from it to the next step stays a line. Every other pair collapses to a dot. */
+@media (max-width: 672px) {
+  .stepper {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .stepLabel {
+    display: none;
+  }
+
+  .stepLabelActive {
+    display: inline;
+  }
+
+  .stepLine {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+
+  .stepLineReached {
+    background: #3ae4d1;
+  }
+
+  .stepLineNext {
+    width: 28px;
+    height: 1px;
+    border-radius: 0;
+    background: #42a7ae;
+  }
+}
+
+/* Text-styled buttons that read as links (Done / Apply / step 01) */
+.link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+  color: #42a7ae;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #3ae4d1;
+}
+
+/* PDF export: print only the sheet, edge to edge on portrait A4 */
+@media print {
+  :global(body.better-schedule-page) * {
+    visibility: hidden;
+  }
+
+  :global(body.better-schedule-page #print-sheet),
+  :global(body.better-schedule-page #print-sheet) * {
+    visibility: visible;
+  }
+
+  :global(body.better-schedule-page #print-sheet) {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+}

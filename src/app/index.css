@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+* {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  font-family: Poppins, sans-serif;
+}
+
+:root {
+  /* Colors Variables */
+  --black: #010000;
+  --gray: #373637;
+  --light-gray: #706d70;
+  --primary: #3ae4d1;
+  --primary-dark: #42a7ae;
+  /* Fonts Variables */
+  --title: "Lexend", serif;
+  --paragraph: "Poppins", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
